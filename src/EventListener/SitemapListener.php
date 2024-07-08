@@ -41,6 +41,9 @@ class SitemapListener implements EventSubscriberInterface
         }
 
         $route = $this->routesInfo[$routeName];
+        if ($route === null) {
+            $route = $this->routesInfo[$routeName . '.' . $request->getLocale()];
+        }
 
         if ($route && $route->isMapped() && $request->attributes->get('_canonical')) {
             $this->sitemap->add(
